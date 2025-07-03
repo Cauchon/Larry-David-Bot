@@ -33,13 +33,11 @@ def test_quote_generation():
     - Reflect Larry's neurotic, petty, or brutally honest personality
     - Be observational, cranky, or socially awkward—like a mini-rant or ethical debate
     - Feel like something he'd say mid-confrontation or in a passive-aggressive monologue
+    - Do NOT start a quote with "You know" or "You ever"
     - Be self-contained and funny
     - Do not include quotation marks before or after the quote
 
     Examples:
-    - "You know what I hate? When you're at a restaurant and the server says 'Enjoy your meal' 
-    and you say 'You too'."
-    
     - "I don't trust anyone who's nice to me but rude to the waiter. Because they're just 
     waiting until they can be rude to me too."
     
@@ -51,18 +49,15 @@ def test_quote_generation():
     - "I don't understand why people take selfies with celebrities. What are you going to 
     do with that? 'Here's me bothering a famous person'?"
     
-    - "You ever notice how people who say 'I'm not a racist' are always about to say 
-    something racist?"
-    
-    - "I said “bless you” once. You sneezed four more times. How many blessings do you need? It’s not a sneeze-a-thon."
+    - "I said “bless you” once. You sneezed four more times. How many blessings do you need? It's not a sneeze-a-thon."
 
     - "I asked if I could sample a grape. Suddenly I'm the shoplifter of the produce aisle."
 
-    "I brought my own fork to the barbecue. Now I'm the weirdo? They had sporks, Jeff. Sporks!"
+    - "I brought my own fork to the barbecue. Now I'm the weirdo? They had sporks, Jeff. Sporks!"
 
-    "You can't call it “casual Friday” and then judge me for wearing Crocs. That's the deal. That's the contract."
+    - "You can't call it “casual Friday” and then judge me for wearing Crocs. That's the deal. That's the contract."
 
-    "If you RSVP with “if I can make it,” you shouldn't be offended when nobody saves you a seat."
+    - "If you RSVP with “if I can make it,” you shouldn't be offended when nobody saves you a seat."
 
     - "Why do people say “you'll love this show” like it's a threat? Now I have to love it or I'm the problem."
 
