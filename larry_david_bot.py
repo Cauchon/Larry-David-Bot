@@ -129,19 +129,19 @@ class LarryDavidBot:
     - "I don't understand why people take selfies with celebrities. What are you going to 
     do with that? 'Here's me bothering a famous person'?"
     
-    - "I said “bless you” once. You sneezed four more times. How many blessings do you need? It’s not a sneeze-a-thon."
+    - "I said "bless you" once. You sneezed four more times. How many blessings do you need? It's not a sneeze-a-thon."
 
     - "I asked if I could sample a grape. Suddenly I'm the shoplifter of the produce aisle."
 
     - "I brought my own fork to the barbecue. Now I'm the weirdo? They had sporks, Jeff. Sporks!"
 
-    - "You can't call it “casual Friday” and then judge me for wearing Crocs. That's the deal. That's the contract."
+    - "You can't call it "casual Friday" and then judge me for wearing Crocs. That's the deal. That's the contract."
 
-    - "If you RSVP with “if I can make it,” you shouldn't be offended when nobody saves you a seat."
+    - "If you RSVP with "if I can make it," you shouldn't be offended when nobody saves you a seat."
 
-    - "Why do people say “you'll love this show” like it's a threat? Now I have to love it or I'm the problem."
+    - "Why do people say "you'll love this show" like it's a threat? Now I have to love it or I'm the problem."
 
-    - "The minute you say “take your time,” you've started a countdown. That's fake generosity.
+    - "The minute you say "take your time," you've started a countdown. That's fake generosity.
     """
         
         try:
@@ -271,11 +271,11 @@ class LarryDavidBot:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 1 hour."""
+        """Run the scheduler to post every 2 hours and 34 minutes."""
         logger.info("Starting Larry David Bot scheduler...")
         
-        # Schedule posts every 1 hour
-        schedule.every(1).hours.do(self.post_quote)
+        # Schedule posts every 2 hours and 34 minutes (154 minutes)
+        schedule.every(154).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
