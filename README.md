@@ -6,7 +6,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Larry David quote
 
 - **Cross-platform posting**: Posts to both Bluesky and Twitter (X)
 - **Automatic scheduling**: Posts every hour using a scheduler
-- **AI-generated quotes**: Uses gpt-4o-mini to create unique, in-character Larry David quotes
+- **AI-generated quotes**: Uses Google's Gemini (gemini-1.5-flash) to create unique, in-character Larry David quotes
 - **Duplicate prevention**: Caches recent posts to avoid repeats
 - **Modern context**: Quotes reference current technology (AirPods, TikTok, AI, Zoom, etc.)
 - **Easy deployment**: Ready to deploy,
@@ -24,7 +24,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Larry David quote
 ### Prerequisites
 
 1. **Bluesky Account**: You need a Bluesky account and an App Password
-2. **OpenAI API Key**: For generating quotes with gpt-4o-mini
+2. **Google Cloud API Key**: For generating quotes with Gemini
 3. **Twitter API Access** (Optional): For cross-posting to Twitter (X) using API v2
 
 ### Local Development
@@ -50,7 +50,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Larry David quote
    # Required
    BLUESKY_HANDLE=your-handle.bsky.social
    BLUESKY_APP_PASSWORD=your-app-password
-   OPENAI_API_KEY=your-openai-api-key
+   GEMINI_API_KEY=your-gemini-api-key
 
    # Twitter API v2 (Optional)
    TWITTER_BEARER_TOKEN=your-bearer-token
@@ -96,7 +96,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Larry David quote
 
 2. The bot will test:
    - Environment variables
-   - OpenAI API connection
+   - Gemini API connection
    - Fallback quotes
    - Twitter API configuration (if provided)
 
@@ -112,7 +112,7 @@ A Bluesky and X/Twitter bot that automatically posts fictional Larry David quote
 4. **Add environment variables** in Render dashboard:
    - `BLUESKY_HANDLE`
    - `BLUESKY_APP_PASSWORD`
-   - `OPENAI_API_KEY`
+   - `GEMINI_API_KEY`
    - `TWITTER_BEARER_TOKEN` (if using Twitter API v2)
    - `TWITTER_API_KEY` (if using Twitter API v2)
    - `TWITTER_API_SECRET` (if using Twitter API v2)
@@ -132,8 +132,8 @@ schedule.every(1).hours.do(self.post_quote)
 
 ### Quote Generation
 - **Character limit**: 280 characters (Twitter-compatible)
-- **AI model**: gpt-4o-mini
-- **Temperature**: 0.9 (for creativity)
+- **AI model**: gemini-flash-latest
+- **Temperature**: Default (creative)
 - **Fallback quotes**: 5 pre-written quotes if AI fails
 
 ### Duplicate Prevention
@@ -183,7 +183,7 @@ Modify the scheduler in `run_scheduler()` method.
 ### Common Issues
 
 1. **Authentication errors**: Check your Bluesky handle and app password
-2. **API rate limits**: The bot includes retry logic for OpenAI API
+2. **API rate limits**: The bot includes retry logic for Gemini API
 3. **Duplicate posts**: Check the `recent_posts.json` cache file
 4. **Deployment issues**: Ensure all environment variables are set in Render
 

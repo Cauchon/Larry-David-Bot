@@ -6,18 +6,20 @@ Test script for Larry David Bot - generates quotes without posting to Bluesky
 import os
 import sys
 from dotenv import load_dotenv
-import openai
+import google.generativeai as genai
 
 # Load environment variables
 load_dotenv()
 
 def test_quote_generation():
     """Test the quote generation functionality."""
-    openai.api_key = os.getenv('OPENAI_API_KEY')
+    gemini_api_key = os.getenv('GEMINI_API_KEY')
     
-    if not openai.api_key:
-        print("❌ OPENAI_API_KEY not found in environment variables")
+    if not gemini_api_key:
+        print("❌ GEMINI_API_KEY not found in environment variables")
         return False
+    
+    genai.configure(api_key=gemini_api_key)
     
     prompt = """You are Larry David from Curb Your Enthusiasm. You're known for your 
     neurotic, socially awkward personality and your tendency to get into awkward situations. 
@@ -65,23 +67,17 @@ def test_quote_generation():
 """
 
     try:
-        print("🤖 Testing OpenAI API connection...")
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[
-                    {"role": "system", "content": prompt}
-            ],
-            max_tokens=150,
-            temperature=0.9
-        )
+        print("🤖 Testing Gemini API connection...")
+        model = genai.GenerativeModel('gemini-flash-latest')
+        response = model.generate_content(prompt)
         
-        quote = response.choices[0].message.content.strip()
+        quote = response.text.strip()
         
         # Clean up the quote
         if quote.startswith('"') and quote.endswith('"'):
             quote = quote[1:-1]
         
-        print("✅ OpenAI API connection successful!")
+        print("✅ Gemini API connection successful!")
         print(f"📝 Generated quote: {quote}")
         print(f"📏 Character count: {len(quote)}")
         
@@ -93,7 +89,7 @@ def test_quote_generation():
         return True
         
     except Exception as e:
-        print(f"❌ Error testing OpenAI API: {e}")
+        print(f"❌ Error testing Gemini API: {e}")
         return False
 
 def test_fallback_quotes():
@@ -124,7 +120,7 @@ def test_environment_variables():
     required_vars = [
         'BLUESKY_HANDLE',
         'BLUESKY_APP_PASSWORD', 
-        'OPENAI_API_KEY'
+        'GEMINI_API_KEY'
     ]
     
     # Optional Twitter API variables
@@ -179,8 +175,8 @@ def main():
     env_ok, twitter_status = test_environment_variables()
     print()
     
-    # Test OpenAI API
-    openai_ok = test_quote_generation()
+    # Test Gemini API
+    gemini_ok = test_quote_generation()
     print()
     
     # Test fallback quotes
@@ -190,11 +186,11 @@ def main():
     print("=" * 50)
     print("📊 Test Summary:")
     print(f"Environment variables: {'✅' if env_ok else '❌'}")
-    print(f"OpenAI API: {'✅' if openai_ok else '❌'}")
+    print(f"Gemini API: {'✅' if gemini_ok else '❌'}")
     print(f"Fallback quotes: {'✅' if fallback_ok else '❌'}")
     print(f"Twitter API: {twitter_status}")
     
-    if all([env_ok, openai_ok, fallback_ok]):
+    if all([env_ok, gemini_ok, fallback_ok]):
         print("\n🎉 All tests passed! The bot should work correctly.")
     else:
         print("\n⚠️  Some tests failed. Please check the issues above.")
