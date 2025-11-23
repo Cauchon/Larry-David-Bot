@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 from typing import List, Optional
 import random
 
-import openai
+import google.generativeai as genai
 import tweepy
 from atproto import Client
 try:
@@ -48,11 +48,13 @@ class LarryDavidBot:
         self.handle = os.getenv('BLUESKY_HANDLE')
         self.app_password = os.getenv('BLUESKY_APP_PASSWORD')
         
-        # OpenAI configuration
-        openai.api_key = os.getenv('OPENAI_API_KEY')
+        # Gemini configuration
+        self.gemini_api_key = os.getenv('GEMINI_API_KEY')
         
-        if not all([self.handle, self.app_password, openai.api_key]):
-            raise ValueError("Missing required environment variables. Check BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, and OPENAI_API_KEY")
+        if not all([self.handle, self.app_password, self.gemini_api_key]):
+            raise ValueError("Missing required environment variables. Check BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, and GEMINI_API_KEY")
+
+        genai.configure(api_key=self.gemini_api_key)
         
         # Login to Bluesky
         self.client.login(self.handle, self.app_password)
@@ -145,16 +147,10 @@ class LarryDavidBot:
     """
         
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-5-mini",
-                messages=[
-                    {"role": "system", "content": prompt}
-                ],
-                max_tokens=150,
-                temperature=0.9
-            )
+            model = genai.GenerativeModel('gemini-flash-latest')
+            response = model.generate_content(prompt)
             
-            quote = response.choices[0].message.content.strip()
+            quote = response.text.strip()
             
             # Clean up the quote
             if quote.startswith('"') and quote.endswith('"'):
@@ -231,7 +227,7 @@ class LarryDavidBot:
                 post = self.client.send_post(text=text)
             
             post_uri = post.uri
-            self.recent_posts.append(post_uri)
+            self.recent_posts.append(text)
             # Keep only the most recent posts in cache
             if len(self.recent_posts) > self.max_cache_size:
                 self.recent_posts = self.recent_posts[-self.max_cache_size:]
@@ -274,8 +270,8 @@ class LarryDavidBot:
         """Run the scheduler to post every 2 hours and 34 minutes."""
         logger.info("Starting Larry David Bot scheduler...")
         
-        # Schedule posts every 2 hours and 34 minutes (154 minutes)
-        schedule.every(154).minutes.do(self.post_quote)
+        # Schedule posts every 1 hour
+        schedule.every(1).hours.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
