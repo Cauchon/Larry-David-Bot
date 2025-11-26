@@ -282,8 +282,8 @@ class LarryDavidBot:
         """Run the scheduler to post every 2 hours and 34 minutes."""
         logger.info("Starting Larry David Bot scheduler...")
         
-        # Schedule posts every 1 hour
-        schedule.every(1).hours.do(self.post_quote)
+        # Schedule posts every 3 hours and 34 minutes (214 minutes)
+        schedule.every(214).minutes.do(self.post_quote)
         
         # Post immediately on startup
         logger.info("Posting initial quote...")
