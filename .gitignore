@@ -1,3 +1,5 @@
 .env
 RASPBERRY_PI.md
 larry_david_bot.service
+.DS_Store
+/__pycache__
