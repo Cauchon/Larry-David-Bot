@@ -3,3 +3,5 @@ RASPBERRY_PI.md
 larry_david_bot.service
 .DS_Store
 /__pycache__
+larry_david_bot.log
+recent_posts.json
