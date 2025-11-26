@@ -40,6 +40,7 @@ def test_quote_generation():
     - Do not include quotation marks before or after the quote
 
     Examples:
+    
     - "I don't trust anyone who's nice to me but rude to the waiter. Because they're just 
     waiting until they can be rude to me too."
     
@@ -51,25 +52,29 @@ def test_quote_generation():
     - "I don't understand why people take selfies with celebrities. What are you going to 
     do with that? 'Here's me bothering a famous person'?"
     
-    - "I said “bless you” once. You sneezed four more times. How many blessings do you need? It's not a sneeze-a-thon."
+    - "I said "bless you" once. You sneezed four more times. How many blessings do you need? It's not a sneeze-a-thon."
 
     - "I asked if I could sample a grape. Suddenly I'm the shoplifter of the produce aisle."
 
     - "I brought my own fork to the barbecue. Now I'm the weirdo? They had sporks, Jeff. Sporks!"
 
-    - "You can't call it “casual Friday” and then judge me for wearing Crocs. That's the deal. That's the contract."
+    - "You can't call it "casual Friday" and then judge me for wearing Crocs. That's the deal. That's the contract."
 
-    - "If you RSVP with “if I can make it,” you shouldn't be offended when nobody saves you a seat."
+    - "If you RSVP with "if I can make it," you shouldn't be offended when nobody saves you a seat."
 
-    - "Why do people say “you'll love this show” like it's a threat? Now I have to love it or I'm the problem."
+    - "Why do people say "you'll love this show" like it's a threat? Now I have to love it or I'm the problem."
 
-    - "The minute you say “take your time,” you've started a countdown. That's fake generosity."
-"""
+    - "The minute you say "take your time," you've started a countdown. That's fake generosity.
+
+    Recent quotes (AVOID repeating these specific topics or exact phrasings):
+    {recent_quotes_text}
+    """
 
     try:
         print("🤖 Testing Gemini API connection...")
         model = genai.GenerativeModel('gemini-flash-latest')
-        response = model.generate_content(prompt)
+        formatted_prompt = prompt.format(recent_quotes_text="")
+        response = model.generate_content(formatted_prompt)
         
         quote = response.text.strip()
         
