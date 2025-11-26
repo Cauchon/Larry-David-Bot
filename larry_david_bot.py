@@ -279,7 +279,7 @@ class LarryDavidBot:
             return False
     
     def run_scheduler(self):
-        """Run the scheduler to post every 2 hours and 34 minutes."""
+        """Run the scheduler to post every 3 hours and 34 minutes."""
         logger.info("Starting Larry David Bot scheduler...")
         
         # Schedule posts every 3 hours and 34 minutes (214 minutes)
